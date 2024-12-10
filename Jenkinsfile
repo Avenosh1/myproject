@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git bra[Onch: 'main', url: 'https://github.com/Avenosh1/myproject.git'
+                git branch: 'main', url: 'https://github.com/Avenosh1/myproject.git'
             }
         }
 
