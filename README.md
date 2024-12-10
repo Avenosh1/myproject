@@ -47,7 +47,7 @@ sudo apt-get install jenkins
 
 ## Access Jenkins
 Visit Jenkins at:  
-`http://<ec2-instance-public-ip>:8080`
+`http://<instance-public-ip>:8080`
 
 Log in using the initial admin password:
 ```bash
@@ -105,29 +105,6 @@ CMD ["java", "Main"]
 EOF
 ```
 
-## Initialize and Push to Git Repository
-1. Initialize a Git repository:
-   ```bash
-   git init
-   ```
-2. Add a remote repository:
-   ```bash
-   git remote add origin https://github.com/Avenosh1/myproject
-   ```
-3. Set the branch to `main`:
-   ```bash
-   git branch -M main
-   ```
-4. Stage and commit changes:
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   ```
-5. Push to the remote repository:
-   ```bash
-   git push -u origin main
-   ```
-
 ## Create `Jenkinsfile`
 Create a pipeline definition for Jenkins:
 ```bash
@@ -161,9 +138,6 @@ pipeline {
 }
 EOF
 ```
-
----
-
 # Git Configuration
 
 ## Generate a Personal Access Token (PAT) on GitHub
@@ -173,10 +147,41 @@ EOF
 git remote set-url origin https://<your_username>:<your_personal_access_token>@github.com/Avenosh1/myproject.git
 ```
 
-## Push Changes to GitHub Repository
-```bash
-git push origin main
-```
+## Initialize and Push to Git Repository
+1. Initialize a Git repository:
+   ```bash
+   git init
+   ```
+2. Add a remote repository:
+   ```bash
+   git remote add origin https://github.com/Avenosh1/myproject
+   ```
+3. Set the branch to `main`:
+   ```bash
+   git branch -M main
+   ```
+4. Stage and commit changes:
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   ```
+5. Push to the remote repository:
+   ```bash
+   git push -u origin main
+   ```
+
+# Configure Pipeline in Jenkins
+
+1. Go to **New Item** and create a **Pipeline** project.
+2. Under the **Pipeline** section, configure the following:
+   - **Definition:** Pipeline script from SCM
+   - **SCM:** Git
+   - **Repository URL:** `https://github.com/Avenosh1/myproject`
+   - **Credentials:** `- none -` (or add credentials if required)
+   - **Branches to build:**
+     - Branch Specifier: `*/main`
+   - **Script Path:** `Jenkinsfile`
+   - **Lightweight checkout:** Enabled
 
 ---
 
